@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfyrm3fgl2n1m"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_5qap0"]
+[ext_resource type="PackedScene" uid="uid://d2ksluynr21px" path="res://scenes/stock_tower.tscn" id="2_6iyxt"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_5qap0")
+
+[node name="Tower1" parent="." instance=ExtResource("2_6iyxt")]
+position = Vector2(182, 612)
+
+[node name="Tower2" parent="." instance=ExtResource("2_6iyxt")]
+position = Vector2(527, 609)
+
+[node name="Tower3" parent="." instance=ExtResource("2_6iyxt")]
+position = Vector2(839, 608)

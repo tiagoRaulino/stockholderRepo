@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfyrm3fgl2n1m"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_l5dww"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_l5dww")
+
+[node name="ObjectiveLabel" type="Label" parent="."]
+z_index = 1
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 44.0
+offset_bottom = 27.0
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+
+[node name="YouWinLabel" type="Label" parent="."]
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 540.0
+offset_top = 318.0
+offset_right = 616.0
+offset_bottom = 341.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 64
+text = "Nivel Concluido!"

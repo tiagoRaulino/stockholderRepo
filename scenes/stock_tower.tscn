@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2ksluynr21px"]
+
+[ext_resource type="Script" path="res://scripts/stock_tower.gd" id="1_i2tyc"]
+
+[node name="StockTower" type="Node2D"]
+script = ExtResource("1_i2tyc")
+
+[node name="Base" type="ColorRect" parent="."]
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 20.0
+color = Color(0.779291, 0.779291, 0.779291, 1)

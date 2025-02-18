@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://djtqacgwvr6x8"]
+
+[ext_resource type="Script" path="res://scripts/stock_box.gd" id="1_u0x7l"]
+
+[node name="StockBox" type="ColorRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_u0x7l")
+
+[node name="ValueLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_constants/outline_size = 6
