@@ -19,6 +19,8 @@ func add_box(box: StockBox):
 	box.position = Vector2(-box.size.x / 2, new_y)
 
 	# Check if the game is won after adding a box
+	get_parent().move_count += 1
+	get_parent().move_count_label.text = str(get_parent().move_count)
 	get_parent().check_win()
 
 func remove_top_box():

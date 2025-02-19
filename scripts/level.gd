@@ -8,9 +8,11 @@ var selected_tower: StockTower = null  # Currently selected tower
 var held_box: StockBox = null  # Store removed box
 var held_box_position := Vector2(450, 50)  # Position for showing the held box
 var objective: String  # Sorting objective: "increase_size", "decrease_size", "increase_price", "decrease_price"
+var move_count = -10
 
 @onready var objective_label = $ObjectiveLabel  # A Label node in the scene
 @onready var you_win_label: Label = $YouWinLabel
+@onready var move_count_label: Label = $MoveCountLabel
 
 func _ready():
 	# Randomly select an objective from the four possible sorting methods
