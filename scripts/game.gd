@@ -18,4 +18,3 @@ func create_new_level() -> void:
 	# Load and add the new level
 	var new_level = load("res://scenes/level.tscn").instantiate()
 	add_child(new_level)
-	print("sinal recebido")

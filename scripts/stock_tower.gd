@@ -2,7 +2,7 @@ extends Node2D
 class_name StockTower
 
 var boxes: Array = []  
-@export var max_height: int = 10  
+var max_height: int = 10
 
 func add_box(box: StockBox):
 	if boxes.size() >= max_height:

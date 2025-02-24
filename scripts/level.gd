@@ -1,6 +1,7 @@
 extends Node2D
 
-signal level_completed  # Signal to notify higher level when the level is completed
+enum Speed {FAST, SLOW}
+enum Moves {FEW, AVERAGE, ALOT}
 
 @export var TOWER_SPACING: int = 300
 var towers = []
@@ -9,10 +10,13 @@ var held_box: StockBox = null  # Store removed box
 var held_box_position := Vector2(450, 50)  # Position for showing the held box
 var objective: String  # Sorting objective: "increase_size", "decrease_size", "increase_price", "decrease_price"
 var move_count = -10
+var speed_amount = Speed.FAST
+var moves_amount = Moves.FEW
 
 @onready var objective_label = $ObjectiveLabel  # A Label node in the scene
 @onready var you_win_label: Label = $YouWinLabel
 @onready var move_count_label: Label = $MoveCountLabel
+@onready var game_timer = Timer.new()
 
 func _ready():
 	# Randomly select an objective from the four possible sorting methods
@@ -47,9 +51,24 @@ func _ready():
 		# Assign to a random tower
 		var random_tower = towers[randi_range(0, 2)]
 		random_tower.add_box(box)
-
-#func _process(delta: float) -> void:
-	#print(self.name)
+		
+	game_timer.wait_time = 20
+	game_timer.one_shot = true
+	game_timer.timeout.connect(_on_time_over)
+	add_child(game_timer)
+	game_timer.start()
+	
+func _process(delta: float) -> void:
+	if move_count > 25 && move_count <= 35:
+		moves_amount = Moves.AVERAGE 
+	if move_count > 35:
+		moves_amount = Moves.ALOT
+	print(str(moves_amount)+" "+str(speed_amount))
+	 
+func _on_time_over():
+	print("Time over")
+	speed_amount = Speed.SLOW
+	# You can add additional logic here (e.g., show game over screen, restart level, etc.)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
@@ -90,10 +109,9 @@ func check_win():
 					if tower.decrease_price_order():
 						declare_win("Preço (do mais caro para o mais barato)")
 
-func declare_win(order_type: String):
-	print("YOU WIN! The tower is sorted correctly by " + order_type)
+func declare_win(_order_type: String):
+	# print("YOU WIN! The tower is sorted correctly by " + order_type)
 	you_win_label.visible = true
 	await get_tree().create_timer(0.8).timeout
 	get_parent().create_new_level()
-	print("signal emited")
 	self.queue_free()
