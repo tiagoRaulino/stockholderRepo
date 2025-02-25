@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dtq2d04ljkxci"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_gfiij"]
-[ext_resource type="PackedScene" uid="uid://cfyrm3fgl2n1m" path="res://scenes/level.tscn" id="1_wn4g0"]
+[ext_resource type="Script" path="res://scripts/scoring_tree_node.gd" id="2_8n4um"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_gfiij")
@@ -13,29 +13,49 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(0.0962047, 0.0962048, 0.0962047, 1)
 
-[node name="Level" parent="." instance=ExtResource("1_wn4g0")]
-
-[node name="PointsLabel" type="Label" parent="."]
+[node name="CurrentLevelLabel" type="Label" parent="."]
 z_index = 1
-offset_left = 81.0
+offset_left = 65.0
 offset_top = 84.0
-offset_right = 121.0
+offset_right = 79.0
 offset_bottom = 107.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 16
 text = "0"
 
-[node name="PointsName" type="Label" parent="."]
+[node name="CurrentLevelName" type="Label" parent="."]
 z_index = 1
 offset_left = 13.0
 offset_top = 84.0
-offset_right = 72.0
+offset_right = 59.0
 offset_bottom = 107.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 16
 text = "Nível:"
+
+[node name="ScoringLabel" type="Label" parent="."]
+z_index = 1
+offset_left = 108.0
+offset_top = 112.0
+offset_right = 122.0
+offset_bottom = 135.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+text = "0"
+
+[node name="ScoringLabelName" type="Label" parent="."]
+z_index = 1
+offset_left = 13.0
+offset_top = 111.0
+offset_right = 59.0
+offset_bottom = 134.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+text = "Pontuação:"
 
 [node name="ControlsTip" type="Label" parent="."]
 z_index = 1
@@ -48,3 +68,6 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 16
 text = "Controles:
 [A] [S] [D]"
+
+[node name="ScoringTreeNode" type="Node" parent="."]
+script = ExtResource("2_8n4um")

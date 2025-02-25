@@ -1,7 +1,8 @@
 extends Node2D
 
 enum Speed {FAST, SLOW}
-enum Moves {FEW, AVERAGE, ALOT}
+enum Moves {FEW, ALOT}
+enum MissedStacks {NONE, ONCE}
 
 @export var TOWER_SPACING: int = 300
 var towers = []
@@ -12,6 +13,8 @@ var objective: String  # Sorting objective: "increase_size", "decrease_size", "i
 var move_count = -10
 var speed_amount = Speed.FAST
 var moves_amount = Moves.FEW
+var missed_stack = MissedStacks.NONE
+var level_results = []
 
 @onready var objective_label = $ObjectiveLabel  # A Label node in the scene
 @onready var you_win_label: Label = $YouWinLabel
@@ -19,8 +22,6 @@ var moves_amount = Moves.FEW
 @onready var game_timer = Timer.new()
 
 func _ready():
-	# Randomly select an objective from the four possible sorting methods
-	objective = ["increase_size", "decrease_size", "increase_price", "decrease_price"].pick_random()
 	you_win_label.visible = false
 
 	# Display the objective
@@ -58,15 +59,13 @@ func _ready():
 	add_child(game_timer)
 	game_timer.start()
 	
-func _process(delta: float) -> void:
-	if move_count > 25 && move_count <= 35:
-		moves_amount = Moves.AVERAGE 
-	if move_count > 35:
+func _process(_delta: float) -> void:
+	if move_count > 25:
 		moves_amount = Moves.ALOT
-	print(str(moves_amount)+" "+str(speed_amount))
+	#print(str(moves_amount)+" "+str(speed_amount))
 	 
 func _on_time_over():
-	print("Time over")
+	#print("Time over")
 	speed_amount = Speed.SLOW
 	# You can add additional logic here (e.g., show game over screen, restart level, etc.)
 
@@ -99,18 +98,31 @@ func check_win():
 				"increase_size":
 					if tower.increase_size_order():
 						declare_win("Tamanho (do menor para o maior)")
+					else:
+						missed_stack = MissedStacks.ONCE
 				"decrease_size":
 					if tower.decrease_size_order():
 						declare_win("Tamanho (do maior para o menor)")
+					else:
+						missed_stack = MissedStacks.ONCE
 				"increase_price":
 					if tower.increase_price_order():
 						declare_win("Preço (do mais barato para o mais caro)")
+					else:
+						missed_stack = MissedStacks.ONCE
 				"decrease_price":
 					if tower.decrease_price_order():
 						declare_win("Preço (do mais caro para o mais barato)")
+					else:
+						missed_stack = MissedStacks.ONCE
 
 func declare_win(_order_type: String):
 	# print("YOU WIN! The tower is sorted correctly by " + order_type)
+	level_results.append(speed_amount)
+	level_results.append(moves_amount)
+	level_results.append(missed_stack)
+	get_parent().process_level_result(level_results)
+	
 	you_win_label.visible = true
 	await get_tree().create_timer(0.8).timeout
 	get_parent().create_new_level()

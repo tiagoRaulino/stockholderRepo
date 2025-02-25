@@ -2,7 +2,23 @@ extends Node2D
 class_name StockTower
 
 var boxes: Array = []  
+var tail: StockBox = null
+var tower_height: int = 0
 var max_height: int = 10
+
+class Box:
+	var next: StockBox = null
+	var previous: StockBox = null
+	var box_element: StockBox = null
+	
+func add_box_2(box: StockBox):
+	if tower_height >= max_height:
+		return
+		
+	if box.get_parent():
+		box.get_parent().remove_top_box()
+		
+	tower_height += 1
 
 func add_box(box: StockBox):
 	if boxes.size() >= max_height:
@@ -13,7 +29,7 @@ func add_box(box: StockBox):
 
 	boxes.append(box)
 	add_child(box)
-
+	
 	# Position box on top of the stack
 	var new_y = -40 * (boxes.size() - 1) - 40
 	box.position = Vector2(-box.size.x / 2, new_y)
