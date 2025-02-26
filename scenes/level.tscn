@@ -6,6 +6,7 @@
 script = ExtResource("1_l5dww")
 
 [node name="ObjectiveLabel" type="Label" parent="."]
+visible = false
 z_index = 1
 offset_left = 4.0
 offset_top = 4.0
