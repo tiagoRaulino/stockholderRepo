@@ -73,4 +73,4 @@ text = "Controles:
 script = ExtResource("2_8n4um")
 
 [node name="ObjectiveIconsOrigin" type="Node2D" parent="."]
-position = Vector2(392, 113)
+position = Vector2(797, 57)

@@ -18,7 +18,7 @@ func _ready() -> void:
 	for i in range(5):
 		create_objective()
 	objectives_manager.print_objectives()
-	objective_icons_origin.position = Vector2(window_width - (76 * 5), 50)
+	#objective_icons_origin.position = Vector2(window_width - (76 * 5), 50)
 	create_new_level()
 	var ScoringTreeScript = load("res://scripts/scoring_tree_node.gd")  # Ensure this is the correct path
 	scoring_tree = ScoringTreeScript.new()
