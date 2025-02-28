@@ -1,14 +1,36 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtq2d04ljkxci"]
+[gd_scene load_steps=5 format=3 uid="uid://dtq2d04ljkxci"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_gfiij"]
 [ext_resource type="Script" path="res://scripts/scoring_tree_node.gd" id="2_8n4um"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a44br"]
+bg_color = Color(0.804743, 0.804743, 0.804743, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cqbdj"]
+bg_color = Color(0.0834555, 0.366017, 0.993729, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_gfiij")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 1152.0
-offset_bottom = 648.0
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 28.8
+anchor_bottom = 16.2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(0.0962047, 0.0962048, 0.0962047, 1)
@@ -46,6 +68,17 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 16
 text = "0"
 
+[node name="ScoringLabel2" type="Label" parent="."]
+z_index = 1
+offset_left = 645.0
+offset_top = 286.0
+offset_right = 659.0
+offset_bottom = 320.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "0"
+
 [node name="ScoringLabelName" type="Label" parent="."]
 z_index = 1
 offset_left = 13.0
@@ -56,6 +89,17 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 16
 text = "Pontuação:"
+
+[node name="ScoringLabelName2" type="Label" parent="."]
+z_index = 1
+offset_left = 443.0
+offset_top = 286.0
+offset_right = 635.0
+offset_bottom = 320.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Pontuação Final:"
 
 [node name="ControlsTip" type="Label" parent="."]
 z_index = 1
@@ -74,3 +118,41 @@ script = ExtResource("2_8n4um")
 
 [node name="ObjectiveIconsOrigin" type="Node2D" parent="."]
 position = Vector2(797, 57)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 31.0
+offset_top = 593.0
+offset_right = 1118.0
+offset_bottom = 620.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_a44br")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cqbdj")
+step = 0.25
+value = 100.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 120.0
+one_shot = true
+autostart = true
+
+[node name="GameOverLabel" type="Label" parent="."]
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 391.0
+offset_top = 191.0
+offset_right = 765.0
+offset_bottom = 279.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 64
+text = "Fim de Jogo!"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

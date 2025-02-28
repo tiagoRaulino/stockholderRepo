@@ -2,7 +2,6 @@ extends Node2D
 class_name StockTower
 
 var boxes: Array = []  
-var tail: StockBox = null
 var tower_height: int = 0
 var max_height: int = 10
 

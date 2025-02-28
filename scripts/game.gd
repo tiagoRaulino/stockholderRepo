@@ -2,7 +2,12 @@ extends Node2D
 
 @onready var current_level_label: Label = $CurrentLevelLabel
 @onready var scoring_label: Label = $ScoringLabel
+@onready var scoring_label_2: Label = $ScoringLabel2
+@onready var scoring_label_name_2: Label = $ScoringLabelName2
 @onready var objective_icons_origin: Node2D = $ObjectiveIconsOrigin
+@onready var timer: Timer = $Timer
+@onready var progress_bar: ProgressBar = $ProgressBar
+@onready var game_over_label: Label = $GameOverLabel
 
 var window_width = 1152
 var current_level = 0
@@ -11,17 +16,24 @@ var scoring_tree
 var total_score: int = 0
 
 func _ready() -> void:
+	game_over_label.visible = false
+	scoring_label_2.visible = false
+	scoring_label_name_2.visible = false
+	
 	current_level_label.text = str(0)
 	objectives_manager = ObjectivesManager.new()
 	
 	# Criar apenas 5 objetivos no início
 	for i in range(5):
 		create_objective()
-	objectives_manager.print_objectives()
+	#objectives_manager.print_objectives()
 	#objective_icons_origin.position = Vector2(window_width - (76 * 5), 50)
 	create_new_level()
 	var ScoringTreeScript = load("res://scripts/scoring_tree_node.gd")  # Ensure this is the correct path
 	scoring_tree = ScoringTreeScript.new()
+
+func _process(_delta: float) -> void:
+	progress_bar.value = (timer.time_left)*100/120
 
 func create_new_level() -> void:
 	current_level += 1
@@ -116,7 +128,20 @@ func process_level_result(LevelStates: Array):
 	var level_score = scoring_tree.get_score(LevelStates)
 	total_score += level_score
 	scoring_label.text = str(total_score)
-	print(LevelStates)
-	print("Level Score:", level_score)
-	print("Total Score: ", total_score)
+	scoring_label_2.text = str(total_score)
+	#print(LevelStates)
+	#print("Level Score:", level_score)
+	#print("Total Score: ", total_score)
 	
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F:
+		get_tree().reload_current_scene()
+
+
+func _on_timer_timeout() -> void:
+	print("CABOU!")
+	game_over_label.visible = true
+	scoring_label_2.visible = true
+	scoring_label_name_2.visible = true
+	get_tree().paused = true
